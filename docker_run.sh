@@ -35,7 +35,9 @@ do
   fi
 
   if [ "$param" == "--dev" ]; then
-  echo "Mounting volume '$(pwd):/root/uav_ws/src/icuas23_competition'"
+    echo "Cleaning container:"
+    eval "docker container rm ${CONTAINER_NAME}_${distro}"
+    echo "Mounting volume '$(pwd):/root/uav_ws/src/icuas23_competition'"
     dev="-v $(pwd):/root/uav_ws/src/icuas23_competition"
   fi
 

@@ -47,3 +47,6 @@ windows:
       layout: tiled
       panes:
         - waitForRos; rviz -d config.rviz
+        - waitForRos; rosrun octomap_server octomap_server_node
+          cloud_in:=/red/camera/depth_register/points
+          _frame_id:=world

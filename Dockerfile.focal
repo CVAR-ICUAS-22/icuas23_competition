@@ -6,7 +6,8 @@ ARG USER=root
 
 # Step 1: Install all the needed software packages here
 RUN apt-get update && apt-get install -q -y \
-    vim
+    vim \
+    ros-noetic-octomap-mapping
 
 # Step 2: Create the icuas23_competition package and copy its contents
 WORKDIR $HOME/$CATKIN_WORKSPACE/src/icuas23_competition

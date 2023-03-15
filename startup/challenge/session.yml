@@ -46,3 +46,4 @@ windows:
   - solution:
       layout: tiled
       panes:
+        - waitForRos; rviz -d config.rviz

@@ -48,5 +48,6 @@ windows:
       panes:
         - waitForRos; rviz -d config.rviz
         - waitForRos; rosrun octomap_server octomap_server_node
-          cloud_in:=/red/camera/depth_register/points
+          cloud_in:=/red/camera/depth_registered/points
           _frame_id:=world
+        - waitForRos; rostopic echo /red/poi

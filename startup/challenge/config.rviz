@@ -6,7 +6,8 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
-        - /MarkerArray1/Status1
+        - /TF1
+        - /TF1/Frames1/red/rotor_31
       Splitter Ratio: 0.5
     Tree Height: 752
   - Class: rviz/Selection
@@ -55,14 +56,14 @@ Visualization Manager:
     - Alpha: 1
       Class: rviz/PointStamped
       Color: 204; 41; 204
-      Enabled: true
+      Enabled: false
       History Length: 1
       Name: PointStamped
       Queue Size: 10
       Radius: 0.20000000298023224
       Topic: /red/position
       Unreliable: false
-      Value: true
+      Value: false
     - Alpha: 1
       Auto Size:
         Auto Size Factor: 1
@@ -113,6 +114,7 @@ Visualization Manager:
         "": true
         DepthCloud: true
         Grid: true
+        Map: true
         MarkerArray: true
         PointStamped: true
         Value: true
@@ -135,6 +137,69 @@ Visualization Manager:
       Unreliable: false
       Use Timestamp: false
       Value: false
+    - Class: rviz/TF
+      Enabled: true
+      Frame Timeout: 15
+      Frames:
+        All Enabled: false
+        base_link:
+          Value: false
+        base_link_frd:
+          Value: false
+        map:
+          Value: false
+        map_ned:
+          Value: false
+        odom:
+          Value: false
+        odom_ned:
+          Value: false
+        red/base_link:
+          Value: true
+        red/base_link_footprint:
+          Value: true
+        red/base_link_inertia:
+          Value: false
+        red/camera:
+          Value: true
+        red/camera_box:
+          Value: false
+        red/rotor_0:
+          Value: false
+        red/rotor_1:
+          Value: false
+        red/rotor_2:
+          Value: false
+        red/rotor_3:
+          Value: false
+        world:
+          Value: true
+      Marker Alpha: 1
+      Marker Scale: 1
+      Name: TF
+      Show Arrows: true
+      Show Axes: true
+      Show Names: true
+      Tree:
+        world:
+          red/base_link:
+            red/base_link_footprint:
+              {}
+            red/base_link_inertia:
+              {}
+            red/camera_box:
+              red/camera:
+                {}
+            red/rotor_0:
+              {}
+            red/rotor_1:
+              {}
+            red/rotor_2:
+              {}
+            red/rotor_3:
+              {}
+      Update Interval: 0
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -163,7 +228,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 16.015789031982422
+      Distance: 4.2604146003723145
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -171,17 +236,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 11.104236602783203
-        Y: -3.6058053970336914
-        Z: 4.5461297035217285
+        X: 9.866573333740234
+        Y: -1.4974349737167358
+        Z: 4.9507598876953125
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.36539846658706665
+      Pitch: 0.6147965788841248
       Target Frame: <Fixed Frame>
-      Yaw: 4.075400352478027
+      Yaw: 4.525403022766113
     Saved: ~
 Window Geometry:
   Camera:

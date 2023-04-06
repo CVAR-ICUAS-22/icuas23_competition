@@ -4,10 +4,20 @@ project(icuas23_competition)
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
 
+
+set(PROJECT_DEPENDENCIES 
+  roscpp
+  message_generation
+  tf
+  geometry_msgs
+)
+
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED message_generation geometry_msgs)
+find_package(catkin REQUIRED COMPONENTS
+  ${PROJECT_DEPENDENCIES}
+)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -98,8 +108,8 @@ generate_messages(
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES icuas22_competition
+ INCLUDE_DIRS include
+ LIBRARIES icuas22_competition
  CATKIN_DEPENDS geometry_msgs
 #  DEPENDS system_lib
 )
@@ -108,11 +118,15 @@ catkin_package(
 ## Build ##
 ###########
 
+add_executable(base_footprint_tf_broadcaster src/base_footprint_tf_broadcaster.cpp)
+add_dependencies(base_footprint_tf_broadcaster ${catkin_EXPORTED_TARGETS})
+target_link_libraries(base_footprint_tf_broadcaster ${catkin_LIBRARIES})
+
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
-# ${catkin_INCLUDE_DIRS}
+include
+${catkin_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library

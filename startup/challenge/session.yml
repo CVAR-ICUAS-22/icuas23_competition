@@ -50,4 +50,9 @@ windows:
         - waitForRos; rosrun octomap_server octomap_server_node
           cloud_in:=/red/camera/depth_registered/points
           _frame_id:=world
+          _filter_ground:=true
+          _base_frame_id:=red/base_link_footprint
+          _ground_filter/plane_distance:=0.1
+        - waitForRos; rosrun icuas23_competition base_footprint_tf_broadcaster
         - waitForRos; rostopic echo /red/poi
+        - waitForRos; roslaunch path_planner path_planner_sim.launch namespace:="red"

@@ -43,16 +43,28 @@ windows:
       panes:
         - waitForRos; roslaunch uav_ros_tracker topp_tracker.launch 
           tracker_config:=custom_config/topp_config_custom.yaml
-  - solution:
+  - planner:
       layout: tiled
       panes:
         - waitForRos; rviz -d config.rviz
         - waitForRos; rosrun octomap_server octomap_server_node
           cloud_in:=/red/camera/depth_registered/points
           _frame_id:=world
+          _latch:=false
+          _resolution:=0.5
+          _occupancy_min_z:=1.0
           _filter_ground:=true
           _base_frame_id:=red/base_link_footprint
-          _ground_filter/plane_distance:=0.1
+          _ground_filter/plane_distance:=1.0
+          _ground_filter/angle:=0.5
+          _publish_free_space:=true
         - waitForRos; rosrun icuas23_competition base_footprint_tf_broadcaster
+  - solution:
+      layout: tiled
+      panes:
         - waitForRos; rostopic echo /red/poi
-        - waitForRos; roslaunch path_planner path_planner_sim.launch namespace:="red"
+        # - waitForRos; rosrun lazy_theta_star ltStar_async_node
+        - waitForRos; roslaunch path_planner path_planner_sim.launch namespace:=$UAV_NAMESPACE
+        - waitForRos; python map_generator.py
+        - waitForRos; python image_detector.py
+        - waitForRos; python test_tracker.py

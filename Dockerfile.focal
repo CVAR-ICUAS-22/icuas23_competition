@@ -7,10 +7,8 @@ ARG USER=root
 # Step 1: Install all the needed software packages here
 RUN apt-get update && apt-get install -q -y \
     vim \
-    ros-noetic-depthimage-to-laserscan \
     ros-noetic-octomap-mapping \
-    ros-noetic-geometry-msgs \
-    ros-noetic-grid-map
+    ros-noetic-geometry-msgs
 
 # OWN MODULES
 WORKDIR $HOME/$CATKIN_WORKSPACE/src

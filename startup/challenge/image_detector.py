@@ -4,6 +4,7 @@ from cv_bridge import CvBridge, CvBridgeError
 import cv2
 import copy
 import numpy as np
+from geometry_msgs.msg import Polygon, Point32
 
 
 class image_node():
@@ -16,6 +17,11 @@ class image_node():
 
         # public new topic
         self.image_pub = rospy.Publisher(
+            "/detections/image", Image, queue_size=10)
+        # publisher an array ros message
+        self.bbox_detections = rospy.Publisher(
+            "/detections/bbox", Polygon, queue_size=10)
+        self.crack_annotated_pub = rospy.Publisher(
             "/red/crack_image_annotated", Image, queue_size=10)
 
         self.bridge = CvBridge()
@@ -62,6 +68,12 @@ class image_node():
                                           (x + w, y + h), (36, 255, 12), 2)
                             self.image_pub.publish(
                                 self.bridge.cv2_to_imgmsg(cv_image, "bgr8"))
+                            pol = Polygon()
+                            pol.points.append(Point32(x, y, 0))
+                            pol.points.append(Point32(x + w, y, 0))
+                            pol.points.append(Point32(x + w, y + h, 0))
+                            pol.points.append(Point32(x, y + h, 0))
+                            self.bbox_detections.publish(pol)
 
         cv2.imshow("Image canny", canny)
         cv2.imshow("Detections", cv_image)
@@ -78,9 +90,9 @@ class image_node():
 
         cv_image_gray = cv2.cvtColor(cv_image, cv2.COLOR_BGR2GRAY)
         self.canny(original_image, cv_image_gray)
-        # self.find_countours(original_image, cv_image_gray)
 
-        # cv2.imshow("Image window", cv_image)
+        # cv2.imshow("Image window",pvision2021
+        # image)
         cv2.waitKey(3)
 
     def camera_info_callback(self, msg):

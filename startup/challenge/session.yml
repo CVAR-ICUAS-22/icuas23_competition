@@ -58,13 +58,25 @@ windows:
           _ground_filter/plane_distance:=1.0
           _ground_filter/angle:=0.5
           _publish_free_space:=true
+          _sensor_model/min_range:=3.0
+          _filter_speckles:=true
         - waitForRos; rosrun icuas23_competition base_footprint_tf_broadcaster
   - solution:
       layout: tiled
       panes:
         - waitForRos; rostopic echo /red/poi
         # - waitForRos; rosrun lazy_theta_star ltStar_async_node
-        - waitForRos; roslaunch path_planner path_planner_sim.launch namespace:=$UAV_NAMESPACE goal_position_x:=10.0 goal_position_y:=10.0 map_h:=100 map_w:=100 occ_map_grid_size:=0.5
+        - waitForRos; roslaunch path_planner path_planner_sim.launch 
+          namespace:=$UAV_NAMESPACE
+          goal_position_x:=10.0
+          goal_position_y:=10.0
+          map_h:=50
+          map_w:=20
+          occ_map_grid_size:=0.5
+          img_resolution:=10
+          security_distance:=0.0
         - waitForRos; python map_generator.py
         - waitForRos; python image_detector.py
         - waitForRos; python test_tracker.py
+        # - waitForRos; roslaunch icuas_mission_planner icuas_mission_planner.launch
+        #   namespace:=red

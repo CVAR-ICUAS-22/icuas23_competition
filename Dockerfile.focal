@@ -15,7 +15,7 @@ WORKDIR $HOME/$CATKIN_WORKSPACE/src
 RUN git clone https://github.com/CVAR-ICUAS-22/icuas2023_vision.git
 
 # Install pytorch
-RUN python3 pytorch-YOLOv4/get-pip.py
+RUN python3 icuas2023_vision/get-pip.py
 RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 
 RUN git clone https://github.com/CVAR-ICUAS-22/icuas_mission_planner.git -b icuas23

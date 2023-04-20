@@ -12,7 +12,12 @@ RUN apt-get update && apt-get install -q -y \
 
 # OWN MODULES
 WORKDIR $HOME/$CATKIN_WORKSPACE/src
-# RUN git clone https://github.com/CVAR-ICUAS-22/icuas_ar_track_alvar.git
+RUN git clone https://github.com/nesi73/pytorch-YOLOv4.git
+
+# Install pytorch
+RUN python3 pytorch-YOLOv4/get-pip.py
+RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+
 RUN git clone https://github.com/CVAR-ICUAS-22/icuas_mission_planner.git -b icuas23
 # RUN git clone https://github.com/CVAR-ICUAS-22/icuas2022_speed_controller.git
 RUN git clone https://github.com/CVAR-ICUAS-22/icuas_path_planning.git -b icuas23
@@ -27,11 +32,6 @@ RUN git clone https://github.com/CVAR-ICUAS-22/icuas_path_planning.git -b icuas2
 # Step 2: Create the icuas23_competition package and copy its contents
 WORKDIR $HOME/$CATKIN_WORKSPACE/src/icuas23_competition
 COPY . .
-# RUN git clone https://github.com/nesi73/pytorch-YOLOv4.git
-
-# Install pytorch
-RUN python3 pytorch-YOLOv4/get-pip.py
-RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 
 # Step 3: Build the Catkin workspace
 RUN catkin build --limit-status-rate 0.2

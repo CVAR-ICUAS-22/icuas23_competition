@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -q -y \
 
 # OWN MODULES
 WORKDIR $HOME/$CATKIN_WORKSPACE/src
-RUN git clone https://github.com/nesi73/pytorch-YOLOv4.git
+RUN git clone https://github.com/CVAR-ICUAS-22/icuas2023_vision.git
 
 # Install pytorch
 RUN python3 pytorch-YOLOv4/get-pip.py

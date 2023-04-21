@@ -75,14 +75,14 @@ class image_node():
                             pol.points.append(Point32(x, y + h, 0))
                             self.bbox_detections.publish(pol)
 
-        cv2.imshow("Image canny", canny)
-        cv2.imshow("Detections", cv_image)
+        # cv2.imshow("Image canny", canny)
+        # cv2.imshow("Detections", cv_image)
 
     def find_countours(self, cv_image, cv_image_gray):
         cnt, hierarchy = cv2.findContours(
             cv_image_gray, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
         cv2.drawContours(cv_image, cnt, -1, (0, 0, 255), 2)
-        cv2.imshow("Image findContours", cv_image)
+        # cv2.imshow("Image findContours", cv_image)
 
     def image_callback(self, msg):
         cv_image = self.bridge.imgmsg_to_cv2(msg, "bgr8")
@@ -93,7 +93,7 @@ class image_node():
 
         # cv2.imshow("Image window",pvision2021
         # image)
-        cv2.waitKey(3)
+        # cv2.waitKey(3)
 
     def camera_info_callback(self, msg):
         # print(msg)

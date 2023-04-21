@@ -47,8 +47,9 @@ windows:
       layout: tiled
       panes:
         - waitForRos; rviz -d config.rviz
+        - waitForRos; roslaunch icuas23_competition pc2_narrowed.launch
         - waitForRos; rosrun octomap_server octomap_server_node
-          cloud_in:=/red/camera/depth_registered/points
+          cloud_in:=/red/camera_narrow/depth/points
           _frame_id:=world
           _latch:=false
           _resolution:=0.5
@@ -65,7 +66,6 @@ windows:
       layout: tiled
       panes:
         - waitForRos; rostopic echo /red/poi
-        # - waitForRos; rosrun lazy_theta_star ltStar_async_node
         - waitForRos; roslaunch path_planner path_planner_sim.launch 
           namespace:=$UAV_NAMESPACE
           goal_position_x:=10.0
@@ -75,8 +75,9 @@ windows:
           occ_map_grid_size:=0.5
           img_resolution:=10
           security_distance:=0.0
-        - waitForRos; python map_generator.py
-        - waitForRos; cd ../../icuas2023_vision; python image_detector.py
-        - waitForRos; python test_tracker.py
-        # - waitForRos; roslaunch icuas_mission_planner icuas_mission_planner.launch
-        #   namespace:=red
+        - waitForRos; rosrun icuas23_competition map_generator.py
+        # - waitForRos; cd ../../../pytorch-YOLOv4; python image_detector.py
+        - waitForRos; rosrun icuas23_competition image_detector.py
+        # - waitForRos; python test_tracker.py
+        - waitForRos; roslaunch icuas_mission_planner icuas_mission_planner.launch
+          namespace:=red

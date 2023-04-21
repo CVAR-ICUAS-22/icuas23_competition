@@ -100,6 +100,11 @@ class OccupancyImage:
                 if self.out_of_bounds(x, y):
                     continue
 
+                # if abs(self.pose[0] - x) <= self.resolution*2:
+                #     continue
+                # if abs(self.pose[1] - y) <= self.resolution*2:
+                #     continue
+
                 # if the value is unknown, we dont consider it
                 if value == -1:
                     self.color_coordinates(x, y, 255)

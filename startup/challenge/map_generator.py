@@ -110,9 +110,33 @@ class OccupancyImage:
                 elif value == 0:
                     self.color_coordinates(x, y, 255)
 
+        security_distance = 1.0 # [m]
+
+        self.add_security_margin(security_distance)
+
         # self.color_coordinates(0, 0, 127) # REMOVE THIS
         # self.show_image(self.image)
         self.publish_image()
+
+    def add_security_margin(self, security_margin):
+
+        occ2bin_th = 100 # [0-255]
+        dist2bin_th = 0.7 # [0.0-1.0]
+        # security_distance = 0.5 # [m]
+        # img_resolution = 0.5 # [m/pixel]
+
+        image = self.image.astype(np.uint8)
+        # cv2.imshow("frame", self.image)
+        _, binary_map = cv2.threshold(image, occ2bin_th, 255, cv2.THRESH_BINARY)
+        # print("Binary map type: ", type(binary_map))
+        # cv2.imshow("binary_map", binary_map)
+        distance_map = cv2.distanceTransform(binary_map, cv2.DIST_L2, 3)
+        # cv2.imshow("distance_map", distance_map)
+        dist_normalized_map = distance_map / (security_margin / self.resolution)
+        # cv2.imshow("dist_normalized_map", dist_normalized_map)
+        _, occupancy_map = cv2.threshold(dist_normalized_map, dist2bin_th, 255, cv2.THRESH_BINARY)
+        # cv2.imshow("security_map", occupancy_map)
+        self.image = occupancy_map.astype(np.uint8)
 
     def out_of_bounds(self, x, y):
         """check if pose is inside the map"""

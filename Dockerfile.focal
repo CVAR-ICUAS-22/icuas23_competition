@@ -8,7 +8,8 @@ ARG USER=root
 RUN apt-get update && apt-get install -q -y \
     vim \
     ros-noetic-octomap-mapping \
-    ros-noetic-geometry-msgs
+    ros-noetic-geometry-msgs \
+    ros-noetic-depth-image-proc
 
 # OWN MODULES
 WORKDIR $HOME/$CATKIN_WORKSPACE/src
@@ -21,13 +22,6 @@ RUN pip install torch torchvision torchaudio --index-url https://download.pytorc
 RUN git clone https://github.com/CVAR-ICUAS-22/icuas_mission_planner.git -b icuas23
 # RUN git clone https://github.com/CVAR-ICUAS-22/icuas2022_speed_controller.git
 RUN git clone https://github.com/CVAR-ICUAS-22/icuas_path_planning.git -b icuas23
-
-# 3d path planner
-# RUN git clone --recursive https://github.com/margaridaCF/FlyingOctomap_code.git
-# RUN git clone https://github.com/ethz-asl/eigen_catkin.git
-# RUN git clone https://github.com/ros-perception/laser_filters.git -b noetic-devel
-# RUN touch FlyingOctomap_code/catkin_simple/CATKIN_IGNORE FlyingOctomap_code/dependencies/CATKIN_IGNORE FlyingOctomap_code/architecture/CATKIN_IGNORE
-# RUN ls FlyingOctomap_code
 
 # Step 2: Create the icuas23_competition package and copy its contents
 WORKDIR $HOME/$CATKIN_WORKSPACE/src/icuas23_competition

@@ -101,8 +101,11 @@ class OccupancyImage:
                 if self.out_of_bounds(x, y):
                     continue
 
-                if sqrt((x - self.pose[0])**2 + (y - self.pose[1])**2) <= self.resolution*2:
-                    continue
+                # if sqrt((x - self.pose[0])**2 + (y - self.pose[1])**2) <= self.resolution*2:
+                # # if sqrt((y - self.pose[0])**2 + (x - self.pose[1])**2) <= self.resolution*2:
+                #     self.color_coordinates(x,y,125)
+                    # continue
+                    # self.color_coordinates(x, y, 255)
 
                 # if abs(self.pose[0] - x) <= self.resolution*2:
                 #     continue

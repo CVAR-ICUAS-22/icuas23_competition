@@ -14,6 +14,7 @@ RUN apt-get update && apt-get install -q -y \
 # OWN MODULES
 WORKDIR $HOME/$CATKIN_WORKSPACE/src
 RUN git clone https://github.com/CVAR-ICUAS-22/icuas2023_vision.git
+COPY *.pth icuas2023_vision/checkpoints/Yolov4_epoch293.pth
 
 # Install pytorch
 RUN python3 icuas2023_vision/get-pip.py

@@ -65,7 +65,6 @@ windows:
   - solution:
       layout: tiled
       panes:
-        - waitForRos; rostopic echo /red/poi
         - waitForRos; roslaunch path_planner path_planner_sim.launch 
           namespace:=$UAV_NAMESPACE
           goal_position_x:=10.0
@@ -76,8 +75,8 @@ windows:
           img_resolution:=10
           security_distance:=0.0
         - waitForRos; rosrun icuas23_competition map_generator.py
-        # - waitForRos; cd ../../../pytorch-YOLOv4; python image_detector.py
-        - waitForRos; rosrun icuas23_competition image_detector.py
+        - waitForRos; cd ../../../icuas2023_vision; python image_detections.py
+        # - waitForRos; rosrun icuas23_competition image_detector.py
         # - waitForRos; python test_tracker.py
         - waitForRos; roslaunch icuas_mission_planner icuas_mission_planner.launch
           namespace:=red

@@ -6,6 +6,7 @@ from nav_msgs.msg import OccupancyGrid
 import cv2
 import numpy as np
 import cv_bridge
+from math import sqrt
 
 OCUPANCY_GRID_TOPIC = "/projected_map"
 OCCUPANCY_IMAGE_TOPIC = "/occupancy_image"

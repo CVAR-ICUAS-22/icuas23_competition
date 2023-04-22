@@ -49,7 +49,7 @@ class ImageNarrower:
 
         top_left = (width, int(ROW_1 * image_msg.height))
         bottom_right = (width2, int(ROW_2 * image_msg.height))
-        cv2.rectangle(mask, top_left, bottom_right, (1, 1, 1), -1)
+        # cv2.rectangle(mask, top_left, bottom_right, (1, 1, 1), -1)
         mask[int(ROW_1 * image_msg.height):int(ROW_2 * image_msg.height), width:] = 1
         mask[int(ROW_1 * image_msg.height):int(ROW_2 * image_msg.height), width2:] = 0
         cv_image = cv_image * mask
@@ -61,12 +61,13 @@ class ImageNarrower:
         # cv_image[:, :window] = 0
         # cv_image[:, -window:] = 0
 
-        cv2.imshow('image', cv_image)
-        cv2.waitKey(1)
+        # cv2.imshow('image', cv_image)
+        # cv2.waitKey(1)
 
         msg_narrow = self.bridge.cv2_to_imgmsg(cv_image, "32FC1")
         msg_narrow.header = image_msg.header
 
+        camera_info_msg = camera_info_msg
         camera_info_msg.width = msg_narrow.width
 
         self.image_pub.publish(msg_narrow)

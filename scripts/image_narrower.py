@@ -52,7 +52,11 @@ class ImageNarrower:
         # cv2.rectangle(mask, top_left, bottom_right, (1, 1, 1), -1)
         mask[int(ROW_1 * image_msg.height):int(ROW_2 * image_msg.height), width:] = 1
         mask[int(ROW_1 * image_msg.height):int(ROW_2 * image_msg.height), width2:] = 0
-        cv_image = cv_image * mask
+
+        # This applies the propeller mask to the camera image
+        # cv_image = cv_image * mask
+
+
         # show_mask = mask * 255
         # cv2.imshow('mask', show_mask)
 

@@ -124,11 +124,14 @@ class OccupancyImage:
 
         security_distance = 1.0 # [m]
 
-        self.add_security_margin(security_distance)
+        if security_distance > 0.0:
+            occ_image = self.add_security_margin(security_distance)
+        else:
+            occ_image = self.image
 
         # self.color_coordinates(0, 0, 127) # REMOVE THIS
-        # self.show_image(self.image)
-        self.publish_image()
+        # self.show_image(occ_image)
+        self.publish_image(occ_image)
 
     def add_security_margin(self, security_margin):
 
@@ -137,10 +140,9 @@ class OccupancyImage:
         # security_distance = 0.5 # [m]
         # img_resolution = 0.5 # [m/pixel]
 
-        image = self.image.astype(np.uint8)
-        # cv2.imshow("frame", self.image)
+        image = self.image.copy().astype(np.uint8)
+        # cv2.imshow("frame", image)
         _, binary_map = cv2.threshold(image, occ2bin_th, 255, cv2.THRESH_BINARY)
-        # print("Binary map type: ", type(binary_map))
         # cv2.imshow("binary_map", binary_map)
         distance_map = cv2.distanceTransform(binary_map, cv2.DIST_L2, 3)
         # cv2.imshow("distance_map", distance_map)
@@ -148,7 +150,7 @@ class OccupancyImage:
         # cv2.imshow("dist_normalized_map", dist_normalized_map)
         _, occupancy_map = cv2.threshold(dist_normalized_map, dist2bin_th, 255, cv2.THRESH_BINARY)
         # cv2.imshow("security_map", occupancy_map)
-        self.image = occupancy_map.astype(np.uint8)
+        return occupancy_map.astype(np.uint8)
 
     def out_of_bounds(self, x, y):
         """check if pose is inside the map"""
@@ -156,16 +158,16 @@ class OccupancyImage:
             return True
         return False
 
-    def publish_image(self):
+    def publish_image(self, image):
         """Publish image and image_resized"""
         resized_image = cv2.resize(
-            self.image, (self.width * 10, self.height * 10), interpolation=cv2.INTER_NEAREST)
+            image, (self.width * 10, self.height * 10), interpolation=cv2.INTER_NEAREST)
         resized_image_msg = self.bridge.cv2_to_imgmsg(
             resized_image, encoding="mono8")
         resized_image_msg.header.stamp = rospy.Time.now()
         self.resized_image_publisher.publish(resized_image_msg)
 
-        image_msg = self.bridge.cv2_to_imgmsg(self.image, encoding="mono8")
+        image_msg = self.bridge.cv2_to_imgmsg(image, encoding="mono8")
         image_msg.header.stamp = rospy.Time.now()
 
         self.image_publisher.publish(image_msg)

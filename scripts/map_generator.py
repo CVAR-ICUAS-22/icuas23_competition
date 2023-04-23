@@ -109,10 +109,10 @@ class OccupancyImage:
                     # continue
                     # self.color_coordinates(x, y, 255)
 
-                # if abs(self.pose[0] - x) <= self.resolution*2:
-                #     continue
-                # if abs(self.pose[1] - y) <= self.resolution*2:
-                #     continue
+                if abs(self.pose[0] - x) <= self.resolution*2:
+                    continue
+                if abs(self.pose[1] - y) <= self.resolution*2:
+                    continue
 
                 # if the value is unknown, we dont consider it
                 if value == -1:
@@ -124,7 +124,7 @@ class OccupancyImage:
                 elif value == 0:
                     self.color_coordinates(x, y, 255)
 
-        security_distance = 1.0 # [m]
+        security_distance = 1.5 # [m]
 
         if security_distance > 0.0:
             occ_image = self.add_security_margin(security_distance)

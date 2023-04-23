@@ -59,9 +59,9 @@ windows:
           _ground_filter/plane_distance:=1.0
           _ground_filter/angle:=0.5
           _publish_free_space:=true
-          # _sensor_model/min_range:=3.0
-          -sensor_model/hit:=0.50
-          -sensor_model/miss:=0.4
+          _sensor_model/min_range:=3.0
+          _sensor_model/hit:=0.5
+          _sensor_model/miss:=0.4
           _filter_speckles:=true
         - waitForRos; rosrun icuas23_competition base_footprint_tf_broadcaster
   - solution:
@@ -78,8 +78,8 @@ windows:
         - waitForRos; roslaunch goal_seeker goal_seeker.launch 
           namespace:=$UAV_NAMESPACE
         - waitForRos; rosrun icuas23_competition map_generator.py
-        # - waitForRos; cd ../../../icuas2023_vision; python image_detections.py
-        # - waitForRos; rosrun icuas23_competition image_detector.py
+        - waitForRos; cd ../../../cvar_icuas23_project/icuas2023_vision; python image_detections.py
+        # - waitForRos; rosrun icuas2023_vision image_detections.py
         # - waitForRos; python test_tracker.py
         - waitForRos; roslaunch icuas_mission_planner icuas_mission_planner.launch
           namespace:=red

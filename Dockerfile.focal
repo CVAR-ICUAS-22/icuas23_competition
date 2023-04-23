@@ -23,6 +23,7 @@ RUN pip install torch torchvision torchaudio --index-url https://download.pytorc
 RUN git clone https://github.com/CVAR-ICUAS-22/icuas_mission_planner.git -b icuas23
 # RUN git clone https://github.com/CVAR-ICUAS-22/icuas2022_speed_controller.git
 RUN git clone https://github.com/CVAR-ICUAS-22/icuas_path_planning.git -b icuas23
+RUN git clone https://github.com/CVAR-ICUAS-22/icuas_goal_seeker.git -b icuas23
 
 # Step 2: Create the icuas23_competition package and copy its contents
 WORKDIR $HOME/$CATKIN_WORKSPACE/src/icuas23_competition

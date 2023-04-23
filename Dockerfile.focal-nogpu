@@ -6,7 +6,24 @@ ARG USER=root
 
 # Step 1: Install all the needed software packages here
 RUN apt-get update && apt-get install -q -y \
-    vim
+    vim \
+    ros-noetic-octomap-mapping \
+    ros-noetic-geometry-msgs \
+    ros-noetic-depth-image-proc
+
+# OWN MODULES
+WORKDIR $HOME/$CATKIN_WORKSPACE/src
+RUN git clone https://github.com/CVAR-ICUAS-22/icuas2023_vision.git
+COPY *.pth icuas2023_vision/checkpoints/Yolov4_epoch293.pth
+
+# Install pytorch
+RUN python3 icuas2023_vision/get-pip.py
+RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+
+RUN git clone https://github.com/CVAR-ICUAS-22/icuas_mission_planner.git -b icuas23
+# RUN git clone https://github.com/CVAR-ICUAS-22/icuas2022_speed_controller.git
+RUN git clone https://github.com/CVAR-ICUAS-22/icuas_path_planning.git -b icuas23
+RUN git clone https://github.com/CVAR-ICUAS-22/icuas_goal_seeker.git -b icuas23
 
 # Step 2: Create the icuas23_competition package and copy its contents
 WORKDIR $HOME/$CATKIN_WORKSPACE/src/icuas23_competition

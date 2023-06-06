@@ -33,4 +33,4 @@ echo "Building for $distro with additional docker arguments $build_args."
 docker build \
     $build_args \
     -f Dockerfile.$distro \
-    -t icuas23_competition:$distro .
+    -t icuas23_competition_cvar:$distro .

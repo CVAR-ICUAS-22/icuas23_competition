@@ -1,4 +1,4 @@
-FROM lmark1/uav_ros_simulation:focal
+FROM lmark1/uav_ros_stack:focal
 
 ARG HOME=/root
 ARG CATKIN_WORKSPACE=uav_ws

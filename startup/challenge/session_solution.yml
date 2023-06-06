@@ -1,0 +1,34 @@
+name: icuas_ch
+root: ./
+startup_window: solution
+pre_window: |
+  export UAV_NAMESPACE=red;
+windows:
+  - solution:
+      layout: tiled
+      panes:
+        - waitForRos; roslaunch icuas_mission_planner icuas_mission_planner.launch
+          namespace:=$UAV_NAMESPACE
+        - waitForRos; roslaunch path_planner path_planner_sim.launch 
+          namespace:=$UAV_NAMESPACE
+          map_h:=50
+          map_w:=20
+          img_resolution:=0.10
+          occmap_resolution:=0.50
+          z_min_mapped:=1.0
+          fly_height:=5.0
+          security_distance:=2.00
+          egomap_distance:=2.50
+          next_point_reached_dist:=0.50
+          ref_frame:=world
+          speed_controller:=false
+          max_control_speed:=1.0
+        - waitForRos; roslaunch goal_seeker goal_seeker.launch 
+          namespace:=$UAV_NAMESPACE
+          search_height:=5.0
+          # search_radious:=5.0
+        # - waitForRos; cd ../../../cvar_icuas23_project/icuas2023_vision; python image_detections_inspection_tf.py
+        # - waitForRos; roslaunch basic_speed_controller basic_speed_controller.launch 
+        #   namespace:=$UAV_NAMESPACE
+        #   path_facing:=true
+        #   new_pid:=true

@@ -56,7 +56,7 @@ windows:
           occmap_resolution:=0.20
           center_origin:=true
           z_min_mapped:=0.5
-          fly_height:=1.0
+          fly_height:=1.25
           security_distance:=1.00
           egomap_distance:=2.00
           next_point_reached_dist:=0.20
@@ -65,7 +65,7 @@ windows:
           max_control_speed:=0.3
         - waitForRos; roslaunch goal_seeker goal_seeker.launch 
           namespace:=$UAV_NAMESPACE
-          search_height:=1.00
+          search_height:=1.25
           # search_radious:=5.0
         # - waitForRos; cd ../../../cvar_icuas23_project/icuas2023_vision; python image_detections.py
         - waitForRos; roslaunch basic_speed_controller basic_speed_controller.launch 

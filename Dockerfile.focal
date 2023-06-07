@@ -7,7 +7,7 @@ ARG USER=root
 # Step 1: Install all the needed software packages here
 RUN apt-get update && apt-get install -q -y \
     vim \
-    ros-noetic-octomap-mapping \
+    # ros-noetic-octomap-mapping \
     ros-noetic-geometry-msgs \
     ros-noetic-depth-image-proc \
     ros-noetic-depthimage-to-laserscan

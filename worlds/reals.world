@@ -21,6 +21,14 @@
       </ode>
     </physics>
     
+    <gui fullscreen='0'>
+        <camera name='user_camera'>
+            <pose frame=''>-5 -0.5 10 0.00 1.16 0.00</pose>
+            <view_controller>orbit</view_controller>
+            <projection_type>perspective</projection_type>
+        </camera>
+    </gui>
+
     <scene>
       <ambient>0.5 0.5 0.5 1</ambient>
       <background>0.5 0.5 0.5 1</background>
@@ -91,13 +99,137 @@
                 <material>
                     <script>
                     <uri>file://media/materials/scripts/gazebo.material</uri>
-                    <name>Gazebo/White</name>
+                    <name>Gazebo/Grey0</name>
                     </script>
                 </material>
             </visual>
             <self_collide>0</self_collide>
             <enable_wind>0</enable_wind>
             <kinematic>0</kinematic>
+        </link>
+    </model>
+
+    <model name="world_west">
+        <pose>0 3.1 0 0 0 0</pose>
+        <static>true</static>
+
+        <link name="link">
+
+            <collision name="my_collision">
+                <geometry>
+                <box>
+                    <size>10 0.1 5</size>
+                </box>
+                </geometry>
+            </collision>
+
+            <visual name="visual">
+                <geometry>
+                <box>
+                    <size>10 0.1 5</size>
+                </box>
+                </geometry>
+
+                <material>
+                    <script>
+                    <uri>file://media/materials/scripts/gazebo.material</uri>
+                    <name>Gazebo/Red</name>
+                    </script>
+                </material>
+            </visual>
+        </link>
+    </model>
+
+    <model name="world_east">
+        <pose>0 -3.1 0 0 0 0</pose>
+        <static>true</static>
+
+        <link name="link">
+
+            <collision name="my_collision">
+                <geometry>
+                <box>
+                    <size>10 0.1 5</size>
+                </box>
+                </geometry>
+            </collision>
+
+            <visual name="visual">
+                <geometry>
+                <box>
+                    <size>10 0.1 5</size>
+                </box>
+                </geometry>
+
+                <material>
+                    <script>
+                    <uri>file://media/materials/scripts/gazebo.material</uri>
+                    <name>Gazebo/Red</name>
+                    </script>
+                </material>
+            </visual>
+        </link>
+    </model>
+
+    <model name="world_north">
+        <pose>4.35 0 0 0 0 0</pose>
+        <static>true</static>
+
+        <link name="link">
+
+            <collision name="my_collision">
+                <geometry>
+                <box>
+                    <size>0 6 5</size>
+                </box>
+                </geometry>
+            </collision>
+
+            <visual name="visual">
+                <geometry>
+                <box>
+                    <size>0 6 5</size>
+                </box>
+                </geometry>
+
+                <material>
+                    <script>
+                    <uri>file://media/materials/scripts/gazebo.material</uri>
+                    <name>Gazebo/Red</name>
+                    </script>
+                </material>
+            </visual>
+        </link>
+    </model>
+
+    <model name="world_south">
+        <pose>-4.35 0 0 0 0 0</pose>
+        <static>true</static>
+
+        <link name="link">
+
+            <collision name="my_collision">
+                <geometry>
+                <box>
+                    <size>0 6 5</size>
+                </box>
+                </geometry>
+            </collision>
+
+            <visual name="visual">
+                <geometry>
+                <box>
+                    <size>0 6 5</size>
+                </box>
+                </geometry>
+
+                <material>
+                    <script>
+                    <uri>file://media/materials/scripts/gazebo.material</uri>
+                    <name>Gazebo/Red</name>
+                    </script>
+                </material>
+            </visual>
         </link>
     </model>
 

@@ -1,0 +1,86 @@
+name: icuas_ch
+root: ./
+startup_window: roscore
+pre_window: |
+  export UAV_NAMESPACE=red;
+windows:
+  - roscore:
+      layout:
+      panes:
+        - roscore
+        - export SITL_RITW_TERMINAL="tmux new-window -d -n:ardupilot1"; waitForRos; 
+          roslaunch ardupilot_gazebo sim_vehicle.launch 
+          enable_console:=false
+          additional_arguments:="--no-rebuild"
+          parm_file:=$(rospack find icuas23_competition)/parameters/arducopter_nogps.params
+        - waitForRos; rosparam set use_sim_time true; roslaunch ardupilot_gazebo mavros.launch
+  - gazebo:
+      layout: tiled
+      panes:
+        - waitForRos; roslaunch ardupilot_gazebo kopterworx.launch 
+          use_sim_time:=true
+          x:=-3 y:=0
+          world:=$(rospack find icuas23_competition)/worlds/reals.world
+        # - waitForRos; waitForSimulation; roslaunch icuas23_competition spawn_inspection_world.launch
+        - waitForRos; waitForSimulation; sleep 2; rosrun icuas23_competition spawn_tiles_real.py __ns:="$UAV_NAMESPACE"
+  - arm&takeof:
+      layout: tiled
+      panes:
+        - waitForRos; roslaunch uav_ros_control pid_carrot.launch 
+          manual_takeoff:=false
+          msf_callback_enable:=true
+          odometry:=odometry
+          control_type:=pid_cascade_node_yawrate
+          default_params:=custom_config/position_control_thrust.yaml
+        - |
+          waitForRos
+          waitForSysStatus
+          rosrun ardupilot_gazebo automatic_takeoff.sh 2 /$UAV_NAMESPACE/odometry
+          sleep 5
+          rostopic pub --latch /$UAV_NAMESPACE/challenge_started std_msgs/Bool True
+  - trajectory:
+      layout: tiled
+      panes:
+        - waitForRos; roslaunch uav_ros_tracker topp_tracker.launch 
+          tracker_config:=custom_config/topp_config_custom.yaml
+  - planner:
+      layout: tiled
+      panes:
+        - waitForRos; rviz -d config.rviz
+        - waitForRos; roslaunch icuas23_competition pc2_narrowed.launch
+        - waitForRos; rosrun octomap_server octomap_server_node
+          cloud_in:=/red/camera_narrow/depth/points
+          _frame_id:=world
+          _latch:=false
+          _resolution:=0.5
+          _occupancy_min_z:=1.0
+          _filter_ground:=true
+          _base_frame_id:=red/base_link_footprint
+          _ground_filter/plane_distance:=1.0
+          _ground_filter/angle:=0.5
+          _publish_free_space:=true
+          _sensor_model/min_range:=3.0
+          _sensor_model/hit:=0.5
+          _sensor_model/miss:=0.4
+          _filter_speckles:=true
+        - waitForRos; rosrun icuas23_competition base_footprint_tf_broadcaster
+  - solution:
+      layout: tiled
+      panes:
+        - waitForRos; roslaunch path_planner path_planner_sim.launch 
+          namespace:=$UAV_NAMESPACE
+          goal_position_x:=10.0
+          goal_position_y:=10.0
+          map_h:=50
+          map_w:=20
+          occ_map_grid_size:=0.5
+          img_resolution:=10
+        - waitForRos; roslaunch goal_seeker goal_seeker.launch 
+          namespace:=$UAV_NAMESPACE
+        - waitForRos; rosrun icuas23_competition map_generator.py
+        - waitForRos; cd ../../../icuas2023_vision; python image_detections_inspection_tf.py
+        # - waitForRos; rosrun icuas2023_vision image_detections.py
+        # - waitForRos; python test_tracker.py
+        - waitForRos; roslaunch icuas_mission_planner icuas_mission_planner.launch
+          namespace:=red
+        - 

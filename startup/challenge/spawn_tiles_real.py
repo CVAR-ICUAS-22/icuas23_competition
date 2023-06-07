@@ -11,7 +11,7 @@ import numpy as np
 
 
 def construct_poi(pose):
-    d = 2
+    d = 1
     r = d*1.25
     cc_x = pose[0] + d*np.cos(pose[3])
     cc_y = pose[1] + d*np.sin(pose[3])

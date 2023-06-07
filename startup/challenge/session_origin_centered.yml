@@ -19,10 +19,12 @@ windows:
       panes:
         - waitForRos; roslaunch ardupilot_gazebo kopterworx.launch 
           use_sim_time:=true
-          x:=-3 y:=0
-          world:=$(rospack find icuas23_competition)/worlds/reals.world
-        # - waitForRos; waitForSimulation; roslaunch icuas23_competition spawn_inspection_world.launch
-        - waitForRos; waitForSimulation; sleep 2; rosrun icuas23_competition spawn_tiles_real.py __ns:="$UAV_NAMESPACE"
+          x:=0 y:=-20
+          world:=$(rospack find icuas23_competition)/worlds/well_lit.world
+        - waitForRos; waitForSimulation; roslaunch icuas23_competition spawn_inspection_world.launch
+          x:=-10
+          y:=-25
+        - waitForRos; waitForSimulation; sleep 2; rosrun icuas23_competition spawn_tiles.py __ns:="$UAV_NAMESPACE"
   - arm&takeof:
       layout: tiled
       panes:
@@ -50,24 +52,23 @@ windows:
           namespace:=$UAV_NAMESPACE
         - waitForRos; roslaunch path_planner path_planner_sim.launch 
           namespace:=$UAV_NAMESPACE
-          map_h:=8.5
-          map_w:=6.0
+          map_h:=50
+          map_w:=20
           img_resolution:=0.10
           occmap_resolution:=0.50
-          center_origin:=true
           z_min_mapped:=1.0
-          fly_height:=1.0
-          security_distance:=1.00
-          egomap_distance:=2.00
+          fly_height:=5.0
+          security_distance:=2.00
+          egomap_distance:=2.50
           next_point_reached_dist:=0.50
           ref_frame:=world
           speed_controller:=false
           max_control_speed:=1.0
         - waitForRos; roslaunch goal_seeker goal_seeker.launch 
           namespace:=$UAV_NAMESPACE
-          search_height:=2.00
+          search_height:=5.0
           # search_radious:=5.0
-        # - waitForRos; cd ../../../cvar_icuas23_project/icuas2023_vision; python image_detections.py
+        - waitForRos; cd ../../../cvar_icuas23_project/icuas2023_vision; python image_detections.py
         # - waitForRos; roslaunch basic_speed_controller basic_speed_controller.launch 
         #   namespace:=$UAV_NAMESPACE
         #   path_facing:=true

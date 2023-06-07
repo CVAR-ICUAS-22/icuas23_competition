@@ -18,7 +18,8 @@ def construct_poi(pose):
 
     z_off = 2*np.random.random()-4
 
-    return (cc_x, cc_y, pose[2]+z_off, r)
+    # return (cc_x, cc_y, pose[2]+z_off, r)
+    return (cc_x, cc_y, pose[2], r)
 
 
 tile_poses = [(3.4, -2.46, 1, 2.3),

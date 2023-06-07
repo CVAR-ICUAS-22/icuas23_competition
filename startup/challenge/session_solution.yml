@@ -12,18 +12,18 @@ windows:
         - waitForRos; roslaunch path_planner path_planner_real.launch 
           namespace:=$UAV_NAMESPACE
           map_h:=8.5
-          map_w:=6
+          map_w:=6.0
           img_resolution:=0.10
-          occmap_resolution:=0.50
-          z_min_mapped:=1.0
+          occmap_resolution:=0.20
+          center_origin:=true
+          z_min_mapped:=0.5
           fly_height:=1.0
-          security_distance:=2.00
-          egomap_distance:=2.50
-          next_point_reached_dist:=0.50
+          security_distance:=1.50
+          egomap_distance:=2.00
+          next_point_reached_dist:=0.20
           ref_frame:=world
           speed_controller:=false
-          max_control_speed:=1.0
-          center_origin=true
+          max_control_speed:=0.5
         - waitForRos; roslaunch goal_seeker goal_seeker.launch 
           namespace:=$UAV_NAMESPACE
           search_height:=5.0

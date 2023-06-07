@@ -27,6 +27,7 @@ windows:
           namespace:=$UAV_NAMESPACE
           search_height:=5.0
           # search_radious:=5.0
+        - waitForRos; rosrun topic_tools relay /falconblack/vrpn_client/estimated_odometry /$UAV_NAMESPACE/odometry
         # - waitForRos; cd ../../../cvar_icuas23_project/icuas2023_vision; python image_detections_inspection_tf.py
         # - waitForRos; roslaunch basic_speed_controller basic_speed_controller.launch 
         #   namespace:=$UAV_NAMESPACE

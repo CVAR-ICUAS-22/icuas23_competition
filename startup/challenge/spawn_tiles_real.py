@@ -75,8 +75,9 @@ for pose in poses:
 
 PoIArray.poi = point_list
 
-pub.publish(PoIArray)
-rospy.sleep(5)
+while True:
+    pub.publish(PoIArray)
+    rospy.sleep(0.5)
 
 # raw_input("Press enter to continue...")
 

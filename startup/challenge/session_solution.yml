@@ -19,9 +19,9 @@ windows:
           z_min_mapped:=0.5
           z_max_mapped:=2.0
           fly_height:=1.25
-          security_distance:=1.50
+          security_distance:=1.30
           egomap_distance:=2.00
-          next_point_reached_dist:=0.20
+          next_point_reached_dist:=0.35
           ref_frame:=world
           speed_controller:=false
           max_control_speed:=0.3
